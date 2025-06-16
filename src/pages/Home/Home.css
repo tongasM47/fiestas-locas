@@ -1,0 +1,80 @@
+.home {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 140px); /* o 100vh si querés fullscreen total */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #10192e; /* Fallback base */
+}
+
+#tsparticles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.home-hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 700px;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: 3rem;
+    color: #7df4e8;
+    text-shadow: 0 0 15px #7df4e8, 0 0 30px #8484ff;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #c6c2ce;
+    margin-bottom: 2rem;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    background-color: transparent;
+    border: 2px solid #7df4e8;
+    color: #7df4e8;
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #7df4e8;
+}
+
+.cta-button:hover {
+    background-color: #7df4e8;
+    color: #111417;
+    box-shadow: 0 0 18px #7df4e8, 0 0 30px #8484ff;
+}
+
+.cta-button.secondary {
+    border-color: #8484ff;
+    color: #8484ff;
+    box-shadow: 0 0 10px #8484ff;
+}
+
+.cta-button.secondary:hover {
+    background-color: #8484ff;
+    color: #111417;
+    box-shadow: 0 0 18px #8484ff, 0 0 30px #7df4e8;
+}
