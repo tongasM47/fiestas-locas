@@ -1,24 +1,24 @@
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
-
 import { Particles } from 'react-tsparticles';
 import { loadSlim } from 'tsparticles-slim';
-import './NeonParticles.css';
+import './NeonParticlesBackground.css';
 
-const NeonParticles = () => {
+const NeonParticlesBackground = () => {
     const [loaded, setLoaded] = useState(false);
 
     const particlesInit = useCallback(async (engine) => {
         await loadSlim(engine);
     }, []);
 
-        useEffect(() => {
-        console.log('🟣 NeonParticles montado');
-    }, []);
+    useEffect(() => {
+    console.log('🔵 NeonParticlesBackground montado');
+}, []);
+// Efecto de montaje para depuración
 
-    const particlesLoaded = useCallback(async () => {
+    const particlesLoaded = useCallback(() => {
         setTimeout(() => {
             setLoaded(true);
-        }, 300);
+        }, 300); // breve delay para evitar parpadeo al montar
     }, []);
 
     const options = useMemo(() => ({
@@ -27,30 +27,18 @@ const NeonParticles = () => {
         fpsLimit: 60,
         detectRetina: true,
         particles: {
-            number: {
-                value: 100,
-                density: { enable: true, area: 800 },
-            },
-            color: {
-                value: ['#8484ff', '#b58dff', '#9f70ff', '#c6c2ce'],
-            },
+            number: { value: 30, density: { enable: true, area: 1000 } },
+            color: { value: ['#5a4fff', '#a78bfa', '#6d28d9'] },
             shape: { type: 'circle' },
-            opacity: {
-                value: 0.8,
-            },
+            opacity: { value: 0.2 },
             size: {
-                value: 4,
-                random: { enable: true, minimumValue: 2 },
-                anim: {
-                    enable: true,
-                    speed: 1.5,
-                    size_min: 1,
-                    sync: false,
-                },
+                value: 15,
+                random: { enable: true, minimumValue: 10 },
+                anim: { enable: true, speed: 0.3, size_min: 5, sync: false },
             },
             move: {
                 enable: true,
-                speed: 1.2,
+                speed: 0.3,
                 direction: 'none',
                 outModes: { default: 'bounce' },
                 random: false,
@@ -62,7 +50,7 @@ const NeonParticles = () => {
     return (
         <div className={`particles-wrapper ${loaded ? 'visible' : ''}`}>
             <Particles
-                id="tsparticles"
+                id="tsparticles-bg"
                 init={particlesInit}
                 loaded={particlesLoaded}
                 options={options}
@@ -71,4 +59,4 @@ const NeonParticles = () => {
     );
 };
 
-export default React.memo(NeonParticles);
+export default React.memo(NeonParticlesBackground);

@@ -1,13 +1,13 @@
 .home {
     position: relative;
     width: 100%;
-    height: calc(100vh - 140px); /* o 100vh si querés fullscreen total */
+    height: 100vh;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    background: #10192e; /* Fallback base */
+    background: #10192e;
 }
 
 #tsparticles {
@@ -21,7 +21,7 @@
 
 .home-hero {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     text-align: center;
     max-width: 700px;
     width: 100%;
@@ -41,40 +41,169 @@
     margin-bottom: 2rem;
 }
 
-.button-group {
+.mitosis-wrapper {
+    position: relative;
+    width: 340px;
+    height: 60px;
+    margin: 2rem auto 0;
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+    align-items: center;
+    cursor: pointer;
+    overflow: visible;
+    z-index: 2;
 }
 
-.cta-button {
-    background-color: transparent;
-    border: 2px solid #7df4e8;
-    color: #7df4e8;
-    padding: 1rem 2.5rem;
+/* ------------------------------ */
+/* BOTÓN PRINCIPAL GIRATORIO     */
+/* ------------------------------ */
+
+.single-button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #0f172a;
+    color: #ffffff;
     font-size: 1rem;
     font-weight: 600;
     border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: all;
+}
+
+.single-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 30px;
+    padding: 2px;
+    background: linear-gradient(
+        0deg,
+        #7df4e8,
+        #8484ff,
+        #7df4e8,
+        #8484ff,
+        #7df4e8
+    );
+    background-size: 400% 400%;
+    animation: rotate-glow 2s linear infinite;
+    z-index: -1;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
     box-shadow: 0 0 10px #7df4e8;
 }
 
-.cta-button:hover {
-    background-color: #7df4e8;
-    color: #111417;
-    box-shadow: 0 0 18px #7df4e8, 0 0 30px #8484ff;
+@keyframes rotate-glow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-.cta-button.secondary {
-    border-color: #8484ff;
+/* ------------------------------ */
+/* BOTONES DIVIDIDOS             */
+/* ------------------------------ */
+
+.split-button {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background-color: #0f172a;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.4s ease;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* BOTÓN IZQUIERDO — CELESTE */
+.split-button.left {
+    left: 0;
+    color: #7df4e8;
+}
+
+.split-button.left::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 30px;
+    padding: 2px;
+    background: linear-gradient(
+        0deg,
+        #7df4e8,
+        #0f172a,
+        #7df4e8,
+        #0f172a,
+        #7df4e8
+    );
+    background-size: 400% 400%;
+    animation: rotate-glow 2s linear infinite;
+    z-index: -1;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* BOTÓN DERECHO — VIOLETA */
+.split-button.right {
+    right: 0;
     color: #8484ff;
-    box-shadow: 0 0 10px #8484ff;
 }
 
-.cta-button.secondary:hover {
-    background-color: #8484ff;
-    color: #111417;
-    box-shadow: 0 0 18px #8484ff, 0 0 30px #7df4e8;
+.split-button.right::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 30px;
+    padding: 2px;
+    background: linear-gradient(
+        0deg,
+        #8484ff,
+        #0f172a,
+        #8484ff,
+        #0f172a,
+        #8484ff
+    );
+    background-size: 400% 400%;
+    animation: rotate-glow 2s linear infinite;
+    z-index: -1;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* ------------------------------ */
+/* ANIMACIÓN DE SPLIT            */
+/* ------------------------------ */
+
+.mitosis-wrapper.split .single-button {
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+}
+
+.mitosis-wrapper.split .split-button {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mitosis-wrapper.split .left {
+    transform: translateX(-10%) scale(1.05);
+}
+
+.mitosis-wrapper.split .right {
+    transform: translateX(10%) scale(1.05);
 }
