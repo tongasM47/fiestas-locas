@@ -1,6 +1,6 @@
 .home {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -8,15 +8,6 @@
     align-items: center;
     padding: 2rem;
     background: #10192e;
-}
-
-#tsparticles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
 }
 
 .home-hero {
@@ -43,167 +34,123 @@
 
 .mitosis-wrapper {
     position: relative;
-    width: 340px;
-    height: 60px;
+    width: 360px;
+    height: 72px;
     margin: 2rem auto 0;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    overflow: visible;
     z-index: 2;
+    transition: gap 0.3s;
+    gap: 0;
 }
 
-/* ------------------------------ */
-/* BOTÓN PRINCIPAL GIRATORIO     */
-/* ------------------------------ */
-
-.single-button {
-    position: relative;
+.square-btn {
+    position: absolute;
     width: 100%;
     height: 100%;
-    background: #0f172a;
-    color: #ffffff;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 30px;
+    background: #111417;
+    color: #fafaf5;
+    font-size: 1.15rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 0 24px #8484ff44;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     z-index: 2;
-    overflow: hidden;
-    pointer-events: all;
+    transition: transform 0.35s, opacity 0.35s;
+    letter-spacing: 0.5px;
 }
 
-.single-button::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 30px;
-    padding: 2px;
-    background: linear-gradient(
-        0deg,
-        #7df4e8,
-        #8484ff,
-        #7df4e8,
-        #8484ff,
-        #7df4e8
-    );
-    background-size: 400% 400%;
-    animation: rotate-glow 2s linear infinite;
-    z-index: -1;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    box-shadow: 0 0 10px #7df4e8;
-}
-
-@keyframes rotate-glow {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* ------------------------------ */
-/* BOTONES DIVIDIDOS             */
-/* ------------------------------ */
-
-.split-button {
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    background-color: #0f172a;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.4s ease;
+.led-border {
     pointer-events: none;
-    opacity: 0;
+    position: absolute;
+    top: -4px; left: -4px; right: -4px; bottom: -4px;
+    border-radius: 22px;
+    border: 3px solid transparent;
+    filter: blur(1.2px) brightness(1.18);
+    opacity: 0.90;
     z-index: 1;
-    overflow: hidden;
-}
-
-/* BOTÓN IZQUIERDO — CELESTE */
-.split-button.left {
-    left: 0;
-    color: #7df4e8;
-}
-
-.split-button.left::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 30px;
-    padding: 2px;
-    background: linear-gradient(
-        0deg,
-        #7df4e8,
-        #0f172a,
-        #7df4e8,
-        #0f172a,
-        #7df4e8
-    );
     background-size: 400% 400%;
-    animation: rotate-glow 2s linear infinite;
-    z-index: -1;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
 }
 
-/* BOTÓN DERECHO — VIOLETA */
-.split-button.right {
-    right: 0;
-    color: #8484ff;
+@keyframes led-multi {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+@keyframes led-celeste {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; }
+}
+@keyframes led-violeta {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; }
 }
 
-.split-button.right::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 30px;
-    padding: 2px;
-    background: linear-gradient(
-        0deg,
-        #8484ff,
-        #0f172a,
-        #8484ff,
-        #0f172a,
-        #8484ff
-    );
-    background-size: 400% 400%;
-    animation: rotate-glow 2s linear infinite;
-    z-index: -1;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-}
-
-/* ------------------------------ */
-/* ANIMACIÓN DE SPLIT            */
-/* ------------------------------ */
-
-.mitosis-wrapper.split .single-button {
-    opacity: 0;
-    transform: scale(0.9);
-    pointer-events: none;
-}
-
-.mitosis-wrapper.split .split-button {
+.mitosis-wrapper.split .square-btn {
+    width: 48%;
+    min-width: 140px;
+    height: 100%;
+    position: relative;
     opacity: 1;
     pointer-events: all;
 }
 
 .mitosis-wrapper.split .left {
-    transform: translateX(-10%) scale(1.05);
+    left: 0;
+    color: #7df4e8;
+    animation: splitLeft 0.4s cubic-bezier(.77,.01,.5,1.01) forwards;
+}
+.mitosis-wrapper.split .right {
+    right: 0;
+    color: #8484ff;
+    animation: splitRight 0.4s cubic-bezier(.77,.01,.5,1.01) forwards;
 }
 
-.mitosis-wrapper.split .right {
-    transform: translateX(10%) scale(1.05);
+@keyframes splitLeft {
+    0% { opacity: 0; transform: scale(0.7) translateX(0);}
+    100% { opacity: 1; transform: scale(1) translateX(-36px);}
+}
+@keyframes splitRight {
+    0% { opacity: 0; transform: scale(0.7) translateX(0);}
+    100% { opacity: 1; transform: scale(1) translateX(36px);}
+}
+
+.mitosis-wrapper .square-btn:not(.left):not(.right) {
+    position: relative;
+    z-index: 3;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.mitosis-wrapper.split .square-btn:not(.left):not(.right) {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.85) translateY(-36px);
+}
+
+@media (max-width: 600px) {
+    .mitosis-wrapper {
+        width: 98vw;
+        height: 64px;
+    }
+    .mitosis-wrapper.split {
+        flex-direction: column;
+        gap: 1.2em;
+    }
+    .mitosis-wrapper.split .square-btn {
+        width: 100%;
+        min-width: 0;
+        left: 0;
+        right: 0;
+        margin: 0.2em 0;
+        transform: none !important;
+        animation: none !important;
+    }
 }

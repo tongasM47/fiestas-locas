@@ -1,0 +1,243 @@
+.welcome-bg {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #10192e;
+    overflow: hidden;
+}
+
+.welcome-center {
+    text-align: center;
+    z-index: 2;
+    max-width: 380px;
+    width: 100%;
+}
+
+/* Logo con paleta celeste y fucsia */
+.welcome-title {
+    font-size: 3.4rem;
+    margin-bottom: 0.7rem;
+    font-family: 'Poppins', 'Marselis Pro', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+}
+.welcome-title .go {
+    color: #7df4e8;
+    text-shadow: 0 0 8px #7df4e8, 0 0 14px #7df4e8, 0 0 22px #7df4e8, 0 0 32px #7df4e8aa;
+}
+.welcome-title .outzy {
+    color: #f24ef5;
+    text-shadow: 0 0 8px #f24ef5, 0 0 14px #f24ef5, 0 0 22px #f24ef5, 0 0 32px #f24ef5aa;
+}
+
+.welcome-subtitle {
+    font-size: 1.25rem;
+    color: #c6c2ce;
+    margin-bottom: 2.1rem;
+    font-family: 'Poppins', 'Marselis Pro', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+.mitosis-wrapper {
+    position: relative;
+    width: 320px;
+    height: 68px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: gap 0.3s;
+    gap: 0;
+    margin: 0 auto;
+}
+
+.led-border-btn {
+    position: relative;
+    width: 310px;
+    height: 65px;
+    background: #111417;
+    color: #fafaf5;
+    font-size: 1.15rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.25s;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Glow difuso interior */
+.led-border-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(
+        120deg,
+        transparent 20%,
+        #7df4e8 45%,
+        #f24ef5 50%,
+        #7df4e8 55%,
+        transparent 80%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-bounce 3.5s ease-in-out infinite alternate;
+    opacity: 0.4;
+}
+
+/* Borde LED externo */
+.led-border-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    z-index: 1;
+    pointer-events: none;
+    padding: 0;
+    border: 3px solid transparent;
+    background: conic-gradient(
+        #7df4e8 0deg,
+        #f24ef5 90deg,
+        #7df4e8 180deg,
+        #f24ef5 270deg,
+        #7df4e8 360deg
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    filter: blur(3.6px) brightness(1.23);
+    opacity: 1;
+    animation: led-border-anim 2s linear infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes led-border-anim {
+    100% { background-position: 100% 0; }
+}
+
+@keyframes shimmer-bounce {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 0%; }
+}
+
+/* --- MITOSIS --- */
+.mitosis-wrapper.split .led-border-btn {
+    width: 48%;
+    min-width: 120px;
+    margin: 0 -120px;
+    pointer-events: all;
+    opacity: 1;
+    background: #111417;
+    color: #fafaf5;
+    border-radius: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* MITOSIS ANIMADA */
+.mitosis-wrapper.split .left {
+    transform-origin: center left;
+    animation: mitosisLeft 0.3s ease-out forwards;
+    color: #7df4e8;
+    box-shadow: 0 0 12px #7df4e8cc, 0 0 24px #7df4e866;
+    background: radial-gradient(circle at 50% 50%, #7df4e812 0%, #111417 70%);
+}
+
+.mitosis-wrapper.split .right {
+    transform-origin: center right;
+    animation: mitosisRight 0.3s ease-out forwards;
+    color: #f24ef5;
+    box-shadow: 0 0 12px #f24ef5cc, 0 0 24px #f24ef566;
+    background: radial-gradient(circle at 50% 50%, #f24ef512 0%, #111417 70%);
+}
+
+@keyframes mitosisLeft {
+    0% {
+        opacity: 0;
+        transform: scaleX(0) translateX(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1) translateX(-100%);
+    }
+}
+
+@keyframes mitosisRight {
+    0% {
+        opacity: 0;
+        transform: scaleX(0) translateX(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scaleX(1) translateX(100%);
+    }
+}
+
+/* Oculta el botón central cuando se divide */
+.mitosis-wrapper.split .led-border-btn:not(.left):not(.right) {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.85) translateY(-30px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Botón único con animación de pulsación */
+.mitosis-wrapper:not(.split) .led-border-btn {
+    animation: pulse-shadow 4s ease-in-out infinite;
+}
+
+@keyframes pulse-shadow {
+    0% { box-shadow: 0 0 8px #7df4e8, 0 0 12px #f24ef5; }
+    50% { box-shadow: 0 0 24px #7df4e8, 0 0 36px #f24ef5; }
+    100% { box-shadow: 0 0 8px #7df4e8, 0 0 12px #f24ef5; }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .mitosis-wrapper {
+        width: 90vw;
+        max-width: 360px;
+        margin: 0 auto;
+        flex-direction: column;
+        gap: 1.2em;
+        height: auto;
+        padding: 0;
+    }
+
+    .mitosis-wrapper.split .led-border-btn {
+        width: 100% !important;
+        margin: 0;
+        transform: none !important;
+        animation: none !important;
+    }
+
+    .mitosis-wrapper.split .left,
+    .mitosis-wrapper.split .right {
+        transform: none !important;
+        animation: none !important;
+    }
+}
+
+/* Quita efecto interior en split */
+.mitosis-wrapper.split .led-border-btn::after {
+    content: none;
+}
